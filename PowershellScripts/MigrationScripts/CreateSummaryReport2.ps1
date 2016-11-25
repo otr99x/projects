@@ -11,6 +11,7 @@
     
     # create the reporting object
     $Report = New-Object -TypeName psobject
+
     $Report | Add-Member -MemberType NoteProperty -Name 'ContractJDETotal' -Value 0      
     $Report | Add-Member -MemberType NoteProperty -Name 'ContractJDEMigratable' -Value 0      
     $Report | Add-Member -MemberType NoteProperty -Name 'ContractJDEPercent' -Value 0      
@@ -24,7 +25,38 @@
     $Report | Add-Member -MemberType NoteProperty -Name 'ContractURLInCS' -Value 0      
     $Report | Add-Member -MemberType NoteProperty -Name 'ContractMigratedURLInSP' -Value 0      
     $Report | Add-Member -MemberType NoteProperty -Name 'ContractMigratedContractFilePercent' -Value 0      
-    $Report | Add-Member -MemberType NoteProperty -Name 'ContractMigratedContractRecordPercent' -Value 0      
+    $Report | Add-Member -MemberType NoteProperty -Name 'ContractMigratedContractRecordPercent' -Value 0
+    
+    $Report | Add-Member -MemberType NoteProperty -Name 'POJDETotal' -Value 0      
+    $Report | Add-Member -MemberType NoteProperty -Name 'POJDEMigratable' -Value 0      
+    $Report | Add-Member -MemberType NoteProperty -Name 'POJDEPercent' -Value 0      
+    $Report | Add-Member -MemberType NoteProperty -Name 'POSPRecordsMigrated' -Value 0      
+    $Report | Add-Member -MemberType NoteProperty -Name 'POSPFilesMigrated' -Value 0      
+    $Report | Add-Member -MemberType NoteProperty -Name 'PORecordsInCS' -Value 0      
+    $Report | Add-Member -MemberType NoteProperty -Name 'POFilesInCS' -Value 0      
+    $Report | Add-Member -MemberType NoteProperty -Name 'PORecordsInCSNotInSP' -Value 0      
+    $Report | Add-Member -MemberType NoteProperty -Name 'POItemsInSPNotInCS' -Value 0      
+    $Report | Add-Member -MemberType NoteProperty -Name 'POItemsInCSNotInSP' -Value 0      
+    $Report | Add-Member -MemberType NoteProperty -Name 'POURLInCS' -Value 0      
+    $Report | Add-Member -MemberType NoteProperty -Name 'POMigratedURLInSP' -Value 0      
+    $Report | Add-Member -MemberType NoteProperty -Name 'POMigratedContractFilePercent' -Value 0      
+    $Report | Add-Member -MemberType NoteProperty -Name 'POMigratedContractRecordPercent' -Value 0
+          
+    $Report | Add-Member -MemberType NoteProperty -Name 'RFIJDETotal' -Value 0      
+    $Report | Add-Member -MemberType NoteProperty -Name 'RFIJDEMigratable' -Value 0      
+    $Report | Add-Member -MemberType NoteProperty -Name 'RFIJDEPercent' -Value 0      
+    $Report | Add-Member -MemberType NoteProperty -Name 'RFISPRecordsMigrated' -Value 0      
+    $Report | Add-Member -MemberType NoteProperty -Name 'RFISPFilesMigrated' -Value 0      
+    $Report | Add-Member -MemberType NoteProperty -Name 'RFIRecordsInCS' -Value 0      
+    $Report | Add-Member -MemberType NoteProperty -Name 'RFIFilesInCS' -Value 0      
+    $Report | Add-Member -MemberType NoteProperty -Name 'RFIRecordsInCSNotInSP' -Value 0      
+    $Report | Add-Member -MemberType NoteProperty -Name 'RFIItemsInSPNotInCS' -Value 0      
+    $Report | Add-Member -MemberType NoteProperty -Name 'RFIItemsInCSNotInSP' -Value 0      
+    $Report | Add-Member -MemberType NoteProperty -Name 'RFIURLInCS' -Value 0      
+    $Report | Add-Member -MemberType NoteProperty -Name 'RFIMigratedURLInSP' -Value 0      
+    $Report | Add-Member -MemberType NoteProperty -Name 'RFIMigratedContractFilePercent' -Value 0      
+    $Report | Add-Member -MemberType NoteProperty -Name 'RFIMigratedContractRecordPercent' -Value 0
+
 
     $Report.ContractJDETotal = @($JDEContract).count
     $Report.ContractJDEMigratable= @($JDEContract | Where-Object -Property Path -Like ':Enterprise:Upstream Operations:Upstream Business Services:Supply Management:JDE Attachments:SCM-CCA-Contracts*').count
@@ -40,4 +72,7 @@
     $Report.ContractMigratedURLInSP = @($SPContract | Where-Object -Property 'Content Type' -EQ 'Link to a Document').Count
     $Report.ContractMigratedContractFilePercent = "{0:p2}" -f ($Report.ContractSPFilesMigrated / $Report.ContractFilesInCS)
     $Report.ContractMigratedContractRecordPercent = "{0:p2}" -f ($Report.ContractSPRecordsMigrated / $Report.ContractJDEMigratable)
+
+    #TODO build report object for PO and RFI
+
     $Report
